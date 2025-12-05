@@ -36,7 +36,6 @@
       z-index: 1;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0a0a0a; }
     ::-webkit-scrollbar-thumb { background: rgba(184, 149, 110, 0.3); border-radius: 4px; }
@@ -310,6 +309,17 @@
       color: #b8956e;
     }
 
+    .dropdown-item img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      filter: brightness(0) invert(0.7);
+    }
+
+    .dropdown-item:hover img {
+      filter: brightness(0) invert(1);
+    }
+
     .shop-btn {
       background: linear-gradient(135deg, #b8956e 0%, #8b7355 100%);
       border: none;
@@ -441,7 +451,7 @@
     .product-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 30px;
     }
 
@@ -456,10 +466,20 @@
     }
 
     .product-manufacturer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 10px;
       letter-spacing: 2px;
       color: #b8956e;
       font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .product-manufacturer img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(350deg);
     }
 
     .product-image {
@@ -562,7 +582,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 40px;
+      gap: 30px;
     }
 
     .manufacturer-card {
@@ -571,8 +591,9 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
       transition: all 0.3s;
+      min-width: 180px;
     }
 
     .manufacturer-card:hover {
@@ -584,11 +605,19 @@
       background: rgba(184, 149, 110, 0.1);
     }
 
-    .manufacturer-card span:first-child {
-      font-size: 24px;
+    .manufacturer-card img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      filter: brightness(0) invert(0.6);
+      transition: filter 0.3s;
     }
 
-    .manufacturer-card span:last-child {
+    .manufacturer-card:hover img {
+      filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(350deg);
+    }
+
+    .manufacturer-card span {
       font-size: 14px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -723,6 +752,8 @@
       .products-grid { grid-template-columns: 1fr; }
       .features-section { grid-template-columns: 1fr; padding: 60px 20px; }
       .footer-grid { grid-template-columns: 1fr; }
+      .manufacturers-grid { gap: 15px; }
+      .manufacturer-card { min-width: 140px; padding: 15px 20px; }
     }
   </style>
 </head>
@@ -764,16 +795,16 @@
         </button>
         <div class="dropdown-menu">
           <div class="dropdown-item" onclick="selectManufacturer(null)">All Manufacturers</div>
-          <div class="dropdown-item" data-mfr="nissan" onclick="selectManufacturer('Nissan')">🚗 Nissan</div>
-          <div class="dropdown-item" data-mfr="toyota" onclick="selectManufacturer('Toyota')">🚙 Toyota</div>
-          <div class="dropdown-item" data-mfr="honda" onclick="selectManufacturer('Honda')">🏎️ Honda</div>
-          <div class="dropdown-item" data-mfr="bmw" onclick="selectManufacturer('BMW')">🚘 BMW</div>
-          <div class="dropdown-item" data-mfr="mercedes" onclick="selectManufacturer('Mercedes-Benz')">✨ Mercedes-Benz</div>
-          <div class="dropdown-item" data-mfr="audi" onclick="selectManufacturer('Audi')">💫 Audi</div>
-          <div class="dropdown-item" data-mfr="porsche" onclick="selectManufacturer('Porsche')">🏁 Porsche</div>
-          <div class="dropdown-item" data-mfr="lamborghini" onclick="selectManufacturer('Lamborghini')">🐂 Lamborghini</div>
-          <div class="dropdown-item" data-mfr="ferrari" onclick="selectManufacturer('Ferrari')">🐎 Ferrari</div>
-          <div class="dropdown-item" data-mfr="mclaren" onclick="selectManufacturer('McLaren')">🔶 McLaren</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Nissan')"><img src="https://cdn.simpleicons.org/nissan/white" alt="Nissan"> Nissan</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Toyota')"><img src="https://cdn.simpleicons.org/toyota/white" alt="Toyota"> Toyota</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Honda')"><img src="https://cdn.simpleicons.org/honda/white" alt="Honda"> Honda</div>
+          <div class="dropdown-item" onclick="selectManufacturer('BMW')"><img src="https://cdn.simpleicons.org/bmw/white" alt="BMW"> BMW</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Mercedes-Benz')"><img src="https://cdn.simpleicons.org/mercedes/white" alt="Mercedes"> Mercedes-Benz</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Audi')"><img src="https://cdn.simpleicons.org/audi/white" alt="Audi"> Audi</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Porsche')"><img src="https://cdn.simpleicons.org/porsche/white" alt="Porsche"> Porsche</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Lamborghini')"><img src="https://cdn.simpleicons.org/lamborghini/white" alt="Lamborghini"> Lamborghini</div>
+          <div class="dropdown-item" onclick="selectManufacturer('Ferrari')"><img src="https://cdn.simpleicons.org/ferrari/white" alt="Ferrari"> Ferrari</div>
+          <div class="dropdown-item" onclick="selectManufacturer('McLaren')"><img src="https://cdn.simpleicons.org/mclaren/white" alt="McLaren"> McLaren</div>
         </div>
       </div>
 
@@ -784,8 +815,8 @@
         </button>
         <div class="dropdown-menu">
           <div class="dropdown-item" onclick="selectCategory(null)">All Categories</div>
-          <div class="dropdown-item" data-cat="exterior" onclick="selectCategory('Exterior')">◇ Exterior</div>
-          <div class="dropdown-item" data-cat="interior" onclick="selectCategory('Interior')">◈ Interior</div>
+          <div class="dropdown-item" onclick="selectCategory('Exterior')">◇ Exterior</div>
+          <div class="dropdown-item" onclick="selectCategory('Interior')">◈ Interior</div>
         </div>
       </div>
 
@@ -811,7 +842,10 @@
       <div class="product-card" data-manufacturer="BMW" data-category="Exterior">
         <div class="product-header">
           <span class="product-category">Exterior</span>
-          <span class="product-manufacturer">BMW</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/bmw/b8956e" alt="BMW">
+            <span>BMW</span>
+          </div>
         </div>
         <div class="product-image">🛡️</div>
         <h3 class="product-name">Carbon Fiber Hood</h3>
@@ -825,7 +859,10 @@
       <div class="product-card" data-manufacturer="Ferrari" data-category="Interior">
         <div class="product-header">
           <span class="product-category">Interior</span>
-          <span class="product-manufacturer">Ferrari</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/ferrari/b8956e" alt="Ferrari">
+            <span>Ferrari</span>
+          </div>
         </div>
         <div class="product-image">🎯</div>
         <h3 class="product-name">CF Steering Wheel</h3>
@@ -839,7 +876,10 @@
       <div class="product-card" data-manufacturer="Porsche" data-category="Exterior">
         <div class="product-header">
           <span class="product-category">Exterior</span>
-          <span class="product-manufacturer">Porsche</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/porsche/b8956e" alt="Porsche">
+            <span>Porsche</span>
+          </div>
         </div>
         <div class="product-image">🔲</div>
         <h3 class="product-name">Side Mirror Caps</h3>
@@ -853,7 +893,10 @@
       <div class="product-card" data-manufacturer="Lamborghini" data-category="Interior">
         <div class="product-header">
           <span class="product-category">Interior</span>
-          <span class="product-manufacturer">Lamborghini</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/lamborghini/b8956e" alt="Lamborghini">
+            <span>Lamborghini</span>
+          </div>
         </div>
         <div class="product-image">📐</div>
         <h3 class="product-name">Dashboard Trim Kit</h3>
@@ -867,7 +910,10 @@
       <div class="product-card" data-manufacturer="McLaren" data-category="Exterior">
         <div class="product-header">
           <span class="product-category">Exterior</span>
-          <span class="product-manufacturer">McLaren</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/mclaren/b8956e" alt="McLaren">
+            <span>McLaren</span>
+          </div>
         </div>
         <div class="product-image">⚡</div>
         <h3 class="product-name">Front Splitter</h3>
@@ -881,7 +927,10 @@
       <div class="product-card" data-manufacturer="Nissan" data-category="Interior">
         <div class="product-header">
           <span class="product-category">Interior</span>
-          <span class="product-manufacturer">Nissan</span>
+          <div class="product-manufacturer">
+            <img src="https://cdn.simpleicons.org/nissan/b8956e" alt="Nissan">
+            <span>Nissan</span>
+          </div>
         </div>
         <div class="product-image">🔘</div>
         <h3 class="product-name">Shift Knob</h3>
@@ -905,16 +954,46 @@
       <h2 class="section-title">World-Class Brands</h2>
     </div>
     <div class="manufacturers-grid">
-      <div class="manufacturer-card" onclick="selectManufacturer('Nissan')"><span>🚗</span><span>Nissan</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Toyota')"><span>🚙</span><span>Toyota</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Honda')"><span>🏎️</span><span>Honda</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('BMW')"><span>🚘</span><span>BMW</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Mercedes-Benz')"><span>✨</span><span>Mercedes-Benz</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Audi')"><span>💫</span><span>Audi</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Porsche')"><span>🏁</span><span>Porsche</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Lamborghini')"><span>🐂</span><span>Lamborghini</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('Ferrari')"><span>🐎</span><span>Ferrari</span></div>
-      <div class="manufacturer-card" onclick="selectManufacturer('McLaren')"><span>🔶</span><span>McLaren</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Nissan')">
+        <img src="https://cdn.simpleicons.org/nissan/white" alt="Nissan">
+        <span>Nissan</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Toyota')">
+        <img src="https://cdn.simpleicons.org/toyota/white" alt="Toyota">
+        <span>Toyota</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Honda')">
+        <img src="https://cdn.simpleicons.org/honda/white" alt="Honda">
+        <span>Honda</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('BMW')">
+        <img src="https://cdn.simpleicons.org/bmw/white" alt="BMW">
+        <span>BMW</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Mercedes-Benz')">
+        <img src="https://cdn.simpleicons.org/mercedes/white" alt="Mercedes">
+        <span>Mercedes</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Audi')">
+        <img src="https://cdn.simpleicons.org/audi/white" alt="Audi">
+        <span>Audi</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Porsche')">
+        <img src="https://cdn.simpleicons.org/porsche/white" alt="Porsche">
+        <span>Porsche</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Lamborghini')">
+        <img src="https://cdn.simpleicons.org/lamborghini/white" alt="Lamborghini">
+        <span>Lamborghini</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Ferrari')">
+        <img src="https://cdn.simpleicons.org/ferrari/white" alt="Ferrari">
+        <span>Ferrari</span>
+      </div>
+      <div class="manufacturer-card" onclick="selectManufacturer('McLaren')">
+        <img src="https://cdn.simpleicons.org/mclaren/white" alt="McLaren">
+        <span>McLaren</span>
+      </div>
     </div>
   </section>
 
@@ -985,16 +1064,13 @@
       const dropdown = document.getElementById(id);
       const wasOpen = dropdown.classList.contains('open');
       
-      // Close all dropdowns
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
       
-      // Toggle this one
       if (!wasOpen) {
         dropdown.classList.add('open');
       }
     }
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.dropdown')) {
         document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
@@ -1043,11 +1119,9 @@
         }
       });
 
-      // Update title
       const title = document.getElementById('productsTitle');
       title.textContent = (selectedManufacturer || selectedCategory) ? 'Filtered Results' : 'Best Sellers';
 
-      // Show/hide no results
       const noResults = document.getElementById('noResults');
       if (visibleCount === 0) {
         noResults.classList.add('show');
