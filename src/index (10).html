@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonForge | Premium Carbon Fiber Parts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: 
+        radial-gradient(ellipse at 20% 0%, rgba(180, 140, 80, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(180, 140, 80, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0d0d0d 100%);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #e8e4dc;
+      overflow-x: hidden;
+    }
+
+    .texture-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px),
+        repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: rgba(184, 149, 110, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(184, 149, 110, 0.5); }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+      z-index: 100;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #b8956e 0%, #8b7355 100%);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #0a0a0a;
+      font-weight: bold;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #e8e4dc 0%, #b8956e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #a0998c;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: #b8956e; }
+
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(184, 149, 110, 0.3);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-icons span {
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .cart-icon {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      background: #b8956e;
+      border-radius: 50%;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0a0a0a;
+      font-weight: bold;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184, 149, 110, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-subtitle {
+      font-size: 12px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #b8956e;
+      margin-bottom: 30px;
+      font-family: 'Helvetica Neue', sans-serif;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 300;
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s ease-out 0.4s both;
+    }
+
+    .hero-title span:first-child {
+      display: block;
+      color: #e8e4dc;
+    }
+
+    .hero-title span:last-child {
+      display: block;
+      background: linear-gradient(135deg, #b8956e 0%, #d4b896 50%, #8b7355 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: #7a756b;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.8;
+      margin-bottom: 60px;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 300;
+      animation: fadeUp 0.8s ease-out 0.6s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dropdowns */
+    .filters {
+      display: flex;
+      gap: 30px;
+      animation: fadeUp 0.8s ease-out 0.8s both;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-btn {
+      background: linear-gradient(135deg, rgba(30,30,30,0.9) 0%, rgba(20,20,20,0.95) 100%);
+      border: 1px solid rgba(184, 149, 110, 0.3);
+      padding: 18px 50px 18px 30px;
+      color: #7a756b;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-width: 280px;
+      text-align: left;
+      font-family: 'Helvetica Neue', sans-serif;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .dropdown-btn.active {
+      color: #e8e4dc;
+    }
+
+    .dropdown-btn:hover {
+      box-shadow: 0 10px 40px rgba(184, 149, 110, 0.15);
+    }
+
+    .dropdown-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b8956e;
+      transition: transform 0.3s;
+    }
+
+    .dropdown.open .dropdown-arrow {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(25,25,25,0.98) 0%, rgba(15,15,15,0.98) 100%);
+      border: 1px solid rgba(184, 149, 110, 0.2);
+      border-top: none;
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+
+    .dropdown.open .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 14px 30px;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: #a0998c;
+      border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(184, 149, 110, 0.1);
+      color: #e8e4dc;
+    }
+
+    .dropdown-item.selected {
+      color: #b8956e;
+    }
+
+    .shop-btn {
+      background: linear-gradient(135deg, #b8956e 0%, #8b7355 100%);
+      border: none;
+      padding: 18px 40px;
+      color: #0a0a0a;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Helvetica Neue', sans-serif;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(184, 149, 110, 0.3);
+    }
+
+    .shop-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.5;
+    }
+
+    .scroll-indicator span {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, #b8956e 0%, transparent 100%);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Products Section */
+    .products-section {
+      padding: 100px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b8956e;
+      margin-bottom: 15px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 300;
+    }
+
+    .view-all {
+      color: #b8956e;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background: linear-gradient(145deg, rgba(25,25,25,0.8) 0%, rgba(15,15,15,0.9) 100%);
+      border: 1px solid rgba(184, 149, 110, 0.15);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(184, 149, 110, 0.3);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(184, 149, 110, 0.05) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .product-card:hover::before {
+      opacity: 1;
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .product-category {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7a756b;
+      font-family: 'Helvetica Neue', sans-serif;
+      padding: 6px 12px;
+      border: 1px solid rgba(184, 149, 110, 0.2);
+    }
+
+    .product-manufacturer {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #b8956e;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .product-image {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      margin-bottom: 30px;
+      filter: grayscale(30%);
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
+    }
+
+    .product-name {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price {
+      font-size: 24px;
+      font-weight: 300;
+      color: #b8956e;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #7a756b;
+      font-size: 13px;
+    }
+
+    .product-rating span {
+      color: #b8956e;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background: transparent;
+      border: 1px solid rgba(184, 149, 110, 0.4);
+      color: #b8956e;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Helvetica Neue', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .product-card:hover .add-to-cart {
+      background: linear-gradient(135deg, #b8956e 0%, #8b7355 100%);
+      color: #0a0a0a;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 80px;
+      color: #7a756b;
+      display: none;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    .no-results p:first-child {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    /* Manufacturers Section */
+    .manufacturers-section {
+      padding: 100px 60px;
+      background: linear-gradient(180deg, transparent 0%, rgba(184, 149, 110, 0.03) 50%, transparent 100%);
+      position: relative;
+      z-index: 2;
+    }
+
+    .manufacturers-section .section-header {
+      text-align: center;
+      display: block;
+      margin-bottom: 60px;
+    }
+
+    .manufacturers-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .manufacturer-card {
+      padding: 20px 30px;
+      border: 1px solid rgba(184, 149, 110, 0.15);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+
+    .manufacturer-card:hover {
+      border-color: rgba(184, 149, 110, 0.4);
+      background: rgba(184, 149, 110, 0.05);
+    }
+
+    .manufacturer-card.selected {
+      background: rgba(184, 149, 110, 0.1);
+    }
+
+    .manufacturer-card span:first-child {
+      font-size: 24px;
+    }
+
+    .manufacturer-card span:last-child {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #a0998c;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
+      border: 1px solid rgba(184, 149, 110, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      background: linear-gradient(135deg, rgba(184, 149, 110, 0.05) 0%, transparent 100%);
+    }
+
+    .feature h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .feature p {
+      color: #7a756b;
+      font-size: 14px;
+      line-height: 1.8;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    /* Footer */
+    footer {
+      padding: 80px 60px 40px;
+      border-top: 1px solid rgba(184, 149, 110, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+      color: #7a756b;
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 300px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      color: #b8956e;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #7a756b;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-family: 'Helvetica Neue', sans-serif;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: #e8e4dc;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(184, 149, 110, 0.1);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      color: #5a554b;
+      font-size: 12px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      color: #5a554b;
+      text-decoration: none;
+      font-size: 12px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .filters { flex-direction: column; align-items: center; }
+      .dropdown-btn { min-width: 260px; }
+      .products-section { padding: 60px 20px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .features-section { grid-template-columns: 1fr; padding: 60px 20px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="texture-overlay"></div>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">CF</div>
+      <span class="logo-text">CARBONFORGE</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Collection</a>
+      <a href="#">Manufacturers</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <div class="nav-divider"></div>
+      <div class="nav-icons">
+        <span>🔍</span>
+        <span class="cart-icon">🛒<span class="cart-badge">3</span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <p class="hero-subtitle">Premium Carbon Fiber Parts</p>
+    <h1 class="hero-title">
+      <span>Engineered</span>
+      <span>Perfection</span>
+    </h1>
+    <p class="hero-desc">From Nissan to Ferrari — your one-stop destination for authentic carbon fiber components. Dropshipped directly from certified manufacturers worldwide.</p>
+    
+    <div class="filters">
+      <div class="dropdown" id="mfrDropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('mfrDropdown')">
+          Select Manufacturer
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <div class="dropdown-menu">
+          <div class="dropdown-item" onclick="selectManufacturer(null)">All Manufacturers</div>
+          <div class="dropdown-item" data-mfr="nissan" onclick="selectManufacturer('Nissan')">🚗 Nissan</div>
+          <div class="dropdown-item" data-mfr="toyota" onclick="selectManufacturer('Toyota')">🚙 Toyota</div>
+          <div class="dropdown-item" data-mfr="honda" onclick="selectManufacturer('Honda')">🏎️ Honda</div>
+          <div class="dropdown-item" data-mfr="bmw" onclick="selectManufacturer('BMW')">🚘 BMW</div>
+          <div class="dropdown-item" data-mfr="mercedes" onclick="selectManufacturer('Mercedes-Benz')">✨ Mercedes-Benz</div>
+          <div class="dropdown-item" data-mfr="audi" onclick="selectManufacturer('Audi')">💫 Audi</div>
+          <div class="dropdown-item" data-mfr="porsche" onclick="selectManufacturer('Porsche')">🏁 Porsche</div>
+          <div class="dropdown-item" data-mfr="lamborghini" onclick="selectManufacturer('Lamborghini')">🐂 Lamborghini</div>
+          <div class="dropdown-item" data-mfr="ferrari" onclick="selectManufacturer('Ferrari')">🐎 Ferrari</div>
+          <div class="dropdown-item" data-mfr="mclaren" onclick="selectManufacturer('McLaren')">🔶 McLaren</div>
+        </div>
+      </div>
+
+      <div class="dropdown" id="catDropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('catDropdown')">
+          Category
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <div class="dropdown-menu">
+          <div class="dropdown-item" onclick="selectCategory(null)">All Categories</div>
+          <div class="dropdown-item" data-cat="exterior" onclick="selectCategory('Exterior')">◇ Exterior</div>
+          <div class="dropdown-item" data-cat="interior" onclick="selectCategory('Interior')">◈ Interior</div>
+        </div>
+      </div>
+
+      <button class="shop-btn">Shop Now</button>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Featured Collection</p>
+        <h2 class="section-title" id="productsTitle">Best Sellers</h2>
+      </div>
+      <a href="#" class="view-all">View All <span>→</span></a>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <div class="product-card" data-manufacturer="BMW" data-category="Exterior">
+        <div class="product-header">
+          <span class="product-category">Exterior</span>
+          <span class="product-manufacturer">BMW</span>
+        </div>
+        <div class="product-image">🛡️</div>
+        <h3 class="product-name">Carbon Fiber Hood</h3>
+        <div class="product-footer">
+          <span class="product-price">$2,499</span>
+          <div class="product-rating"><span>★</span> 4.9</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card" data-manufacturer="Ferrari" data-category="Interior">
+        <div class="product-header">
+          <span class="product-category">Interior</span>
+          <span class="product-manufacturer">Ferrari</span>
+        </div>
+        <div class="product-image">🎯</div>
+        <h3 class="product-name">CF Steering Wheel</h3>
+        <div class="product-footer">
+          <span class="product-price">$899</span>
+          <div class="product-rating"><span>★</span> 5.0</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card" data-manufacturer="Porsche" data-category="Exterior">
+        <div class="product-header">
+          <span class="product-category">Exterior</span>
+          <span class="product-manufacturer">Porsche</span>
+        </div>
+        <div class="product-image">🔲</div>
+        <h3 class="product-name">Side Mirror Caps</h3>
+        <div class="product-footer">
+          <span class="product-price">$349</span>
+          <div class="product-rating"><span>★</span> 4.8</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card" data-manufacturer="Lamborghini" data-category="Interior">
+        <div class="product-header">
+          <span class="product-category">Interior</span>
+          <span class="product-manufacturer">Lamborghini</span>
+        </div>
+        <div class="product-image">📐</div>
+        <h3 class="product-name">Dashboard Trim Kit</h3>
+        <div class="product-footer">
+          <span class="product-price">$1,299</span>
+          <div class="product-rating"><span>★</span> 4.9</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card" data-manufacturer="McLaren" data-category="Exterior">
+        <div class="product-header">
+          <span class="product-category">Exterior</span>
+          <span class="product-manufacturer">McLaren</span>
+        </div>
+        <div class="product-image">⚡</div>
+        <h3 class="product-name">Front Splitter</h3>
+        <div class="product-footer">
+          <span class="product-price">$1,899</span>
+          <div class="product-rating"><span>★</span> 4.7</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product-card" data-manufacturer="Nissan" data-category="Interior">
+        <div class="product-header">
+          <span class="product-category">Interior</span>
+          <span class="product-manufacturer">Nissan</span>
+        </div>
+        <div class="product-image">🔘</div>
+        <h3 class="product-name">Shift Knob</h3>
+        <div class="product-footer">
+          <span class="product-price">$249</span>
+          <div class="product-rating"><span>★</span> 4.6</div>
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults">
+      <p>No products found</p>
+      <p>Try adjusting your filters</p>
+    </div>
+  </section>
+
+  <section class="manufacturers-section">
+    <div class="section-header">
+      <p class="section-label">Trusted By</p>
+      <h2 class="section-title">World-Class Brands</h2>
+    </div>
+    <div class="manufacturers-grid">
+      <div class="manufacturer-card" onclick="selectManufacturer('Nissan')"><span>🚗</span><span>Nissan</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Toyota')"><span>🚙</span><span>Toyota</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Honda')"><span>🏎️</span><span>Honda</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('BMW')"><span>🚘</span><span>BMW</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Mercedes-Benz')"><span>✨</span><span>Mercedes-Benz</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Audi')"><span>💫</span><span>Audi</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Porsche')"><span>🏁</span><span>Porsche</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Lamborghini')"><span>🐂</span><span>Lamborghini</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('Ferrari')"><span>🐎</span><span>Ferrari</span></div>
+      <div class="manufacturer-card" onclick="selectManufacturer('McLaren')"><span>🔶</span><span>McLaren</span></div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="feature">
+      <div class="feature-icon">✈️</div>
+      <h3>Global Dropshipping</h3>
+      <p>Direct from certified manufacturers to your door. No inventory hassles.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🛡️</div>
+      <h3>Authentic Parts Only</h3>
+      <p>Every component verified for quality and authenticity. 100% genuine.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💎</div>
+      <h3>Premium Quality</h3>
+      <p>OEM-grade carbon fiber. Built to exceed original specifications.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon" style="width:36px;height:36px;font-size:14px;">CF</div>
+          <span class="logo-text" style="font-size:20px;">CARBONFORGE</span>
+        </div>
+        <p>Your premier destination for authentic carbon fiber automotive parts. From economy to exotic — we've got you covered.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#">Exterior Parts</a>
+        <a href="#">Interior Parts</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Best Sellers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Contact Us</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Partners</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 CarbonForge. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let selectedManufacturer = null;
+    let selectedCategory = null;
+
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      const wasOpen = dropdown.classList.contains('open');
+      
+      // Close all dropdowns
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      
+      // Toggle this one
+      if (!wasOpen) {
+        dropdown.classList.add('open');
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      }
+    });
+
+    function selectManufacturer(mfr) {
+      selectedManufacturer = mfr;
+      const btn = document.querySelector('#mfrDropdown .dropdown-btn');
+      btn.textContent = mfr || 'Select Manufacturer';
+      btn.innerHTML += '<span class="dropdown-arrow">▾</span>';
+      if (mfr) btn.classList.add('active');
+      else btn.classList.remove('active');
+      document.getElementById('mfrDropdown').classList.remove('open');
+      filterProducts();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      const btn = document.querySelector('#catDropdown .dropdown-btn');
+      btn.textContent = cat || 'Category';
+      btn.innerHTML += '<span class="dropdown-arrow">▾</span>';
+      if (cat) btn.classList.add('active');
+      else btn.classList.remove('active');
+      document.getElementById('catDropdown').classList.remove('open');
+      filterProducts();
+    }
+
+    function filterProducts() {
+      const cards = document.querySelectorAll('.product-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const mfr = card.dataset.manufacturer;
+        const cat = card.dataset.category;
+        
+        const mfrMatch = !selectedManufacturer || mfr === selectedManufacturer;
+        const catMatch = !selectedCategory || cat === selectedCategory;
+        
+        if (mfrMatch && catMatch) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update title
+      const title = document.getElementById('productsTitle');
+      title.textContent = (selectedManufacturer || selectedCategory) ? 'Filtered Results' : 'Best Sellers';
+
+      // Show/hide no results
+      const noResults = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noResults.classList.add('show');
+      } else {
+        noResults.classList.remove('show');
+      }
+    }
+  </script>
+</body>
+</html>
