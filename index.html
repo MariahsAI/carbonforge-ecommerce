@@ -151,7 +151,7 @@
       min-width: 180px;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s;
+      transition: all 0.3s ease 0.15s;
       pointer-events: none;
     }
 
@@ -168,6 +168,7 @@
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+      transition: all 0.3s ease;
     }
 
     .nav-dropdown-menu a {
@@ -366,15 +367,29 @@
       background: linear-gradient(180deg, rgba(25,25,25,0.98) 0%, rgba(15,15,15,0.98) 100%);
       border: 1px solid rgba(184, 149, 110, 0.2);
       border-top: none;
-      max-height: 320px;
-      overflow-y: auto;
-      overflow-x: hidden;
+      max-height: 0;
+      overflow: hidden;
       z-index: 50;
       backdrop-filter: blur(10px);
-      display: none;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
+      opacity: 0;
+      visibility: hidden;
+      transition: max-height 0.3s ease 0.15s, opacity 0.3s ease 0.15s, visibility 0.3s ease 0.15s;
+    }
+
+    /* Hover to open on desktop - no delay on open, delay on close */
+    .dropdown:hover .dropdown-menu {
+      max-height: 320px;
+      overflow-y: auto;
+      opacity: 1;
+      visibility: visible;
+      transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .dropdown:hover .dropdown-arrow {
+      transform: translateY(-50%) rotate(180deg);
     }
 
     /* Custom scrollbar */
@@ -395,9 +410,16 @@
       background: rgba(184, 149, 110, 0.7);
     }
 
+    /* Also support click/tap open */
     .dropdown.open .dropdown-menu {
-      display: block;
-      animation: dropdownFadeIn 0.2s ease;
+      max-height: 320px;
+      overflow-y: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown.open .dropdown-arrow {
+      transform: translateY(-50%) rotate(180deg);
     }
 
     @keyframes dropdownFadeIn {
@@ -937,13 +959,13 @@
         right: -100%;
         width: 280px;
         height: 100vh;
-        background: linear-gradient(180deg, rgba(15,15,15,0.98) 0%, rgba(10,10,10,0.98) 100%);
+        background: linear-gradient(180deg, rgba(30,28,26,0.97) 0%, rgba(25,23,21,0.97) 100%);
         flex-direction: column;
         align-items: flex-start;
         padding: 80px 30px 30px;
         gap: 0;
         transition: right 0.3s ease;
-        border-left: 1px solid rgba(184, 149, 110, 0.2);
+        border-left: 1px solid rgba(184, 149, 110, 0.25);
         backdrop-filter: blur(20px);
         z-index: 1000;
       }
@@ -967,13 +989,16 @@
         width: 100%;
         justify-content: space-between;
         border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(184, 149, 110, 0.2);
       }
 
       .nav-dropdown-menu {
         position: static;
         transform: none;
         padding-top: 0;
-        background: rgba(0,0,0,0.3);
+        background: rgba(184, 149, 110, 0.08);
         border: none;
         max-height: 0;
         overflow: hidden;
@@ -988,37 +1013,39 @@
         display: none;
       }
 
-      /* Disable hover on mobile */
+      /* Disable hover on mobile - use pointer:coarse to target touch devices */
       .nav-dropdown:hover .nav-dropdown-menu {
         max-height: 0;
+        opacity: 1;
+        visibility: visible;
       }
 
       .nav-dropdown:hover .nav-dropdown-arrow {
         transform: none;
       }
 
+      /* Mobile tap open - use !important to override hover */
       .nav-dropdown.mobile-open .nav-dropdown-menu {
-        max-height: 200px;
+        max-height: 250px !important;
         margin-bottom: 10px;
       }
 
       .nav-dropdown.mobile-open .nav-dropdown-arrow {
-        transform: rotate(180deg);
+        transform: rotate(180deg) !important;
       }
 
       .nav-dropdown-menu a {
         padding: 12px 20px;
         border: none;
         background: transparent;
-        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+        border-bottom: 1px solid rgba(184, 149, 110, 0.15);
         backdrop-filter: none;
-      }
-
-      .nav-dropdown-menu a:first-child,
-      .nav-dropdown-menu a:last-child {
-        border-top: none;
         border-left: none;
         border-right: none;
+      }
+
+      .nav-dropdown-menu a:first-child {
+        border-top: none;
       }
 
       .nav-dropdown-menu a:last-child {
@@ -1043,7 +1070,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.35);
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s;
@@ -1089,8 +1116,27 @@
         max-width: 300px;
       }
 
-      .dropdown-menu {
-        max-height: 250px;
+      /* Disable hover on mobile for filter dropdowns */
+      .dropdown:hover .dropdown-menu {
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .dropdown:hover .dropdown-arrow {
+        transform: translateY(-50%);
+      }
+
+      /* Only open via tap/click on mobile */
+      .dropdown.open .dropdown-menu {
+        max-height: 250px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        overflow-y: auto;
+      }
+
+      .dropdown.open .dropdown-arrow {
+        transform: translateY(-50%) rotate(180deg) !important;
       }
 
       .dropdown-item {
@@ -1186,7 +1232,7 @@
       
       <!-- About Dropdown -->
       <div class="nav-dropdown" id="aboutDropdown">
-        <button class="nav-dropdown-btn" onclick="toggleMobileDropdown(event)">
+        <button class="nav-dropdown-btn" onclick="toggleMobileDropdown(event)" ontouchstart="handleAboutTouch(event)">
           About <span class="nav-dropdown-arrow">▾</span>
         </button>
         <div class="nav-dropdown-menu">
@@ -1514,6 +1560,15 @@
         event.preventDefault();
         event.stopPropagation();
         const dropdown = event.target.closest('.nav-dropdown');
+        dropdown.classList.toggle('mobile-open');
+      }
+    }
+
+    // Touch handler for About dropdown on mobile
+    function handleAboutTouch(event) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        const dropdown = document.getElementById('aboutDropdown');
         dropdown.classList.toggle('mobile-open');
       }
     }
