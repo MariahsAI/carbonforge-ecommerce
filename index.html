@@ -959,13 +959,13 @@
         right: -100%;
         width: 280px;
         height: 100vh;
-        background: linear-gradient(180deg, rgba(30,28,26,0.97) 0%, rgba(25,23,21,0.97) 100%);
+        background: linear-gradient(180deg, rgba(55,50,45,0.98) 0%, rgba(45,40,35,0.98) 100%);
         flex-direction: column;
         align-items: flex-start;
         padding: 80px 30px 30px;
         gap: 0;
         transition: right 0.3s ease;
-        border-left: 1px solid rgba(184, 149, 110, 0.25);
+        border-left: 1px solid rgba(184, 149, 110, 0.3);
         backdrop-filter: blur(20px);
         z-index: 1000;
       }
@@ -974,10 +974,12 @@
         right: 0;
       }
 
-      .nav-links a {
-        padding: 15px 0;
+      .nav-links > a {
+        padding: 18px 0;
         width: 100%;
-        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+        border-bottom: 1px solid rgba(184, 149, 110, 0.2);
+        color: #e8e4dc;
+        font-size: 14px;
       }
 
       .nav-dropdown {
@@ -985,20 +987,22 @@
       }
 
       .nav-dropdown-btn {
-        padding: 15px 0;
+        padding: 18px 0;
         width: 100%;
         justify-content: space-between;
-        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+        border-bottom: 1px solid rgba(184, 149, 110, 0.2);
         cursor: pointer;
         touch-action: manipulation;
-        -webkit-tap-highlight-color: rgba(184, 149, 110, 0.2);
+        -webkit-tap-highlight-color: rgba(184, 149, 110, 0.3);
+        color: #e8e4dc;
+        font-size: 14px;
       }
 
       .nav-dropdown-menu {
         position: static;
         transform: none;
         padding-top: 0;
-        background: rgba(184, 149, 110, 0.08);
+        background: rgba(184, 149, 110, 0.15);
         border: none;
         max-height: 0;
         overflow: hidden;
@@ -1006,28 +1010,31 @@
         visibility: visible;
         pointer-events: auto;
         min-width: 0;
-        transition: max-height 0.3s ease;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        padding: 0;
       }
 
       .nav-dropdown-menu::before {
         display: none;
       }
 
-      /* Disable hover on mobile - use pointer:coarse to target touch devices */
+      /* Disable hover on mobile */
       .nav-dropdown:hover .nav-dropdown-menu {
         max-height: 0;
         opacity: 1;
         visibility: visible;
+        padding: 0;
       }
 
       .nav-dropdown:hover .nav-dropdown-arrow {
         transform: none;
       }
 
-      /* Mobile tap open - use !important to override hover */
+      /* Mobile tap open */
       .nav-dropdown.mobile-open .nav-dropdown-menu {
         max-height: 250px !important;
         margin-bottom: 10px;
+        padding: 10px 0 !important;
       }
 
       .nav-dropdown.mobile-open .nav-dropdown-arrow {
@@ -1035,13 +1042,15 @@
       }
 
       .nav-dropdown-menu a {
-        padding: 12px 20px;
+        padding: 14px 25px;
         border: none;
         background: transparent;
         border-bottom: 1px solid rgba(184, 149, 110, 0.15);
         backdrop-filter: none;
         border-left: none;
         border-right: none;
+        color: #d4cfc5;
+        font-size: 13px;
       }
 
       .nav-dropdown-menu a:first-child {
@@ -1057,11 +1066,16 @@
       }
 
       .nav-icons {
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(184, 149, 110, 0.2);
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(184, 149, 110, 0.3);
         width: 100%;
         justify-content: center;
+        gap: 30px;
+      }
+
+      .nav-icons span {
+        font-size: 24px;
       }
 
       .mobile-overlay {
@@ -1070,7 +1084,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.35);
+        background: rgba(0,0,0,0.25);
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s;
@@ -1232,7 +1246,7 @@
       
       <!-- About Dropdown -->
       <div class="nav-dropdown" id="aboutDropdown">
-        <button class="nav-dropdown-btn" onclick="toggleMobileDropdown(event)" ontouchstart="handleAboutTouch(event)">
+        <button class="nav-dropdown-btn" onclick="toggleMobileDropdown(event)">
           About <span class="nav-dropdown-arrow">▾</span>
         </button>
         <div class="nav-dropdown-menu">
@@ -1559,17 +1573,9 @@
       if (window.innerWidth <= 768) {
         event.preventDefault();
         event.stopPropagation();
-        const dropdown = event.target.closest('.nav-dropdown');
-        dropdown.classList.toggle('mobile-open');
-      }
-    }
-
-    // Touch handler for About dropdown on mobile
-    function handleAboutTouch(event) {
-      if (window.innerWidth <= 768) {
-        event.preventDefault();
         const dropdown = document.getElementById('aboutDropdown');
         dropdown.classList.toggle('mobile-open');
+        console.log('About dropdown toggled:', dropdown.classList.contains('mobile-open'));
       }
     }
 
