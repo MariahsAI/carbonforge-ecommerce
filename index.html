@@ -147,21 +147,26 @@
       top: 100%;
       left: 50%;
       transform: translateX(-50%);
-      margin-top: 20px;
+      padding-top: 15px;
       min-width: 180px;
-      background: linear-gradient(180deg, rgba(20,20,20,0.98) 0%, rgba(15,15,15,0.98) 100%);
-      border: 1px solid rgba(184, 149, 110, 0.25);
-      backdrop-filter: blur(10px);
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s;
       pointer-events: none;
     }
 
+    .nav-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+    }
+
     .nav-dropdown:hover .nav-dropdown-menu {
       opacity: 1;
       visibility: visible;
-      margin-top: 15px;
       pointer-events: auto;
     }
 
@@ -176,10 +181,18 @@
       font-family: 'Helvetica Neue', sans-serif;
       border-bottom: 1px solid rgba(184, 149, 110, 0.1);
       transition: all 0.2s;
+      background: linear-gradient(180deg, rgba(20,20,20,0.98) 0%, rgba(15,15,15,0.98) 100%);
+      border-left: 1px solid rgba(184, 149, 110, 0.25);
+      border-right: 1px solid rgba(184, 149, 110, 0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-dropdown-menu a:first-child {
+      border-top: 1px solid rgba(184, 149, 110, 0.25);
     }
 
     .nav-dropdown-menu a:last-child {
-      border-bottom: none;
+      border-bottom: 1px solid rgba(184, 149, 110, 0.25);
     }
 
     .nav-dropdown-menu a:hover {
@@ -917,7 +930,7 @@
       .nav-dropdown-menu {
         position: static;
         transform: none;
-        margin-top: 0;
+        padding-top: 0;
         background: rgba(0,0,0,0.3);
         border: none;
         max-height: 0;
@@ -927,6 +940,10 @@
         pointer-events: auto;
       }
 
+      .nav-dropdown-menu::before {
+        display: none;
+      }
+
       .nav-dropdown.mobile-open .nav-dropdown-menu {
         max-height: 200px;
         margin-bottom: 10px;
@@ -934,6 +951,20 @@
 
       .nav-dropdown-menu a {
         padding: 12px 20px;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+      }
+
+      .nav-dropdown-menu a:first-child,
+      .nav-dropdown-menu a:last-child {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .nav-dropdown-menu a:last-child {
+        border-bottom: none;
       }
 
       .nav-divider {
