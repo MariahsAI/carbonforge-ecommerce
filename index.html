@@ -129,8 +129,7 @@
       transition: color 0.3s;
     }
 
-    .nav-dropdown-btn:hover,
-    .nav-dropdown.open .nav-dropdown-btn {
+    .nav-dropdown-btn:hover {
       color: #b8956e;
     }
 
@@ -139,7 +138,7 @@
       transition: transform 0.3s;
     }
 
-    .nav-dropdown.open .nav-dropdown-arrow {
+    .nav-dropdown:hover .nav-dropdown-arrow {
       transform: rotate(180deg);
     }
 
@@ -156,12 +155,14 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s;
+      pointer-events: none;
     }
 
-    .nav-dropdown.open .nav-dropdown-menu {
+    .nav-dropdown:hover .nav-dropdown-menu {
       opacity: 1;
       visibility: visible;
       margin-top: 15px;
+      pointer-events: auto;
     }
 
     .nav-dropdown-menu a {
@@ -840,18 +841,231 @@
     }
 
     /* Responsive */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #e8e4dc;
+      transition: all 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 20px 60px; }
-      .filters { flex-direction: column; align-items: center; }
-      .dropdown-btn { min-width: 260px; }
-      .products-section { padding: 60px 20px; }
-      .products-grid { grid-template-columns: 1fr; }
-      .features-section { grid-template-columns: 1fr; padding: 60px 20px; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .manufacturers-grid { gap: 15px; }
-      .manufacturer-card { min-width: 140px; padding: 15px 20px; }
+      
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: linear-gradient(180deg, rgba(15,15,15,0.98) 0%, rgba(10,10,10,0.98) 100%);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        gap: 0;
+        transition: right 0.3s ease;
+        border-left: 1px solid rgba(184, 149, 110, 0.2);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .nav-links a {
+        padding: 15px 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+      }
+
+      .nav-dropdown {
+        width: 100%;
+      }
+
+      .nav-dropdown-btn {
+        padding: 15px 0;
+        width: 100%;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+      }
+
+      .nav-dropdown-menu {
+        position: static;
+        transform: none;
+        margin-top: 0;
+        background: rgba(0,0,0,0.3);
+        border: none;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .nav-dropdown.mobile-open .nav-dropdown-menu {
+        max-height: 200px;
+        margin-bottom: 10px;
+      }
+
+      .nav-dropdown-menu a {
+        padding: 12px 20px;
+      }
+
+      .nav-divider {
+        display: none;
+      }
+
+      .nav-icons {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(184, 149, 110, 0.2);
+        width: 100%;
+        justify-content: center;
+      }
+
+      .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 999;
+      }
+
+      .mobile-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .hero { 
+        padding: 100px 20px 60px; 
+        min-height: auto;
+      }
+
+      .hero-title {
+        font-size: 42px;
+      }
+
+      .hero-title span {
+        display: block;
+      }
+
+      .hero-desc {
+        font-size: 14px;
+        padding: 0 10px;
+      }
+
+      .filters { 
+        flex-direction: column; 
+        align-items: center;
+        width: 100%;
+      }
+
+      .dropdown-btn { 
+        min-width: 100%;
+        max-width: 300px;
+      }
+
+      .products-section { 
+        padding: 60px 20px; 
+      }
+
+      .products-grid { 
+        grid-template-columns: 1fr; 
+      }
+
+      .product-card {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .features-section { 
+        grid-template-columns: 1fr; 
+        padding: 60px 20px;
+        gap: 30px;
+      }
+
+      .footer-grid { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 30px;
+      }
+
+      .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .manufacturers-grid { 
+        gap: 15px;
+        padding: 0 10px;
+      }
+
+      .manufacturer-card { 
+        min-width: 140px; 
+        padding: 15px 20px;
+        font-size: 12px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .section-subtitle {
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 10px;
+      }
+
+      .product-details {
+        padding: 20px 15px;
+      }
+
+      .manufacturer-card {
+        min-width: 120px;
+        padding: 12px 15px;
+      }
+
+      .footer {
+        padding: 40px 15px 20px;
+      }
     }
   </style>
 </head>
@@ -863,13 +1077,13 @@
       <div class="logo-icon">CF</div>
       <span class="logo-text">CARBONFORGE</span>
     </div>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#">Collection</a>
       <a href="#">Manufacturers</a>
       
       <!-- About Dropdown -->
       <div class="nav-dropdown" id="aboutDropdown">
-        <button class="nav-dropdown-btn" onclick="toggleNavDropdown('aboutDropdown')">
+        <button class="nav-dropdown-btn" onclick="toggleMobileDropdown(event)">
           About <span class="nav-dropdown-arrow">▾</span>
         </button>
         <div class="nav-dropdown-menu">
@@ -887,7 +1101,13 @@
         <span class="cart-icon">🛒<span class="cart-badge">3</span></span>
       </div>
     </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
+  <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
 
   <section class="hero">
     <div class="hero-glow"></div>
@@ -1171,16 +1391,27 @@
     let selectedManufacturer = null;
     let selectedCategory = null;
 
-    // Nav dropdown toggle
-    function toggleNavDropdown(id) {
-      const dropdown = document.getElementById(id);
-      const wasOpen = dropdown.classList.contains('open');
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      const overlay = document.getElementById('mobileOverlay');
       
-      // Close all nav dropdowns
-      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+      overlay.classList.toggle('show');
       
-      if (!wasOpen) {
-        dropdown.classList.add('open');
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    }
+
+    // Mobile dropdown toggle (only works on mobile)
+    function toggleMobileDropdown(event) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        event.stopPropagation();
+        const dropdown = event.target.closest('.nav-dropdown');
+        dropdown.classList.toggle('mobile-open');
       }
     }
 
@@ -1201,8 +1432,16 @@
       if (!e.target.closest('.dropdown')) {
         document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
       }
-      if (!e.target.closest('.nav-dropdown')) {
-        document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    });
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        document.getElementById('hamburger').classList.remove('active');
+        document.getElementById('navLinks').classList.remove('open');
+        document.getElementById('mobileOverlay').classList.remove('show');
+        document.body.style.overflow = '';
+        document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('mobile-open'));
       }
     });
 
