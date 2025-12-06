@@ -97,7 +97,7 @@
       align-items: center;
     }
 
-    .nav-links a {
+    .nav-links > a {
       color: #a0998c;
       text-decoration: none;
       font-size: 13px;
@@ -107,7 +107,84 @@
       transition: color 0.3s;
     }
 
-    .nav-links a:hover { color: #b8956e; }
+    .nav-links > a:hover { color: #b8956e; }
+
+    /* Nav Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-btn {
+      color: #a0998c;
+      background: none;
+      border: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+
+    .nav-dropdown-btn:hover,
+    .nav-dropdown.open .nav-dropdown-btn {
+      color: #b8956e;
+    }
+
+    .nav-dropdown-arrow {
+      font-size: 10px;
+      transition: transform 0.3s;
+    }
+
+    .nav-dropdown.open .nav-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 20px;
+      min-width: 180px;
+      background: linear-gradient(180deg, rgba(20,20,20,0.98) 0%, rgba(15,15,15,0.98) 100%);
+      border: 1px solid rgba(184, 149, 110, 0.25);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .nav-dropdown.open .nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      margin-top: 15px;
+    }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 14px 24px;
+      color: #a0998c;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+      border-bottom: 1px solid rgba(184, 149, 110, 0.1);
+      transition: all 0.2s;
+    }
+
+    .nav-dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .nav-dropdown-menu a:hover {
+      background: rgba(184, 149, 110, 0.1);
+      color: #e8e4dc;
+    }
 
     .nav-divider {
       width: 1px;
@@ -483,18 +560,26 @@
     }
 
     .product-image {
-      height: 150px;
+      height: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 64px;
       margin-bottom: 30px;
-      filter: grayscale(30%);
       transition: transform 0.4s;
+      overflow: hidden;
     }
 
-    .product-card:hover .product-image {
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%) contrast(1.1);
+      transition: all 0.4s;
+    }
+
+    .product-card:hover .product-image img {
       transform: scale(1.1);
+      filter: grayscale(0%) contrast(1.1);
     }
 
     .product-name {
@@ -768,8 +853,21 @@
     <div class="nav-links">
       <a href="#">Collection</a>
       <a href="#">Manufacturers</a>
-      <a href="#">About</a>
+      
+      <!-- About Dropdown -->
+      <div class="nav-dropdown" id="aboutDropdown">
+        <button class="nav-dropdown-btn" onclick="toggleNavDropdown('aboutDropdown')">
+          About <span class="nav-dropdown-arrow">▾</span>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="#">Our Story</a>
+          <a href="#">Leadership</a>
+          <a href="#">History</a>
+        </div>
+      </div>
+      
       <a href="#">Contact</a>
+      
       <div class="nav-divider"></div>
       <div class="nav-icons">
         <span>🔍</span>
@@ -847,7 +945,7 @@
             <span>BMW</span>
           </div>
         </div>
-        <div class="product-image">🛡️</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Carbon Fiber Hood"></div>
         <h3 class="product-name">Carbon Fiber Hood</h3>
         <div class="product-footer">
           <span class="product-price">$2,499</span>
@@ -864,7 +962,7 @@
             <span>Ferrari</span>
           </div>
         </div>
-        <div class="product-image">🎯</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/2834653/pexels-photo-2834653.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="CF Steering Wheel"></div>
         <h3 class="product-name">CF Steering Wheel</h3>
         <div class="product-footer">
           <span class="product-price">$899</span>
@@ -881,7 +979,7 @@
             <span>Porsche</span>
           </div>
         </div>
-        <div class="product-image">🔲</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/4356142/pexels-photo-4356142.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Side Mirror Caps"></div>
         <h3 class="product-name">Side Mirror Caps</h3>
         <div class="product-footer">
           <span class="product-price">$349</span>
@@ -898,7 +996,7 @@
             <span>Lamborghini</span>
           </div>
         </div>
-        <div class="product-image">📐</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/4635340/pexels-photo-4635340.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Dashboard Trim Kit"></div>
         <h3 class="product-name">Dashboard Trim Kit</h3>
         <div class="product-footer">
           <span class="product-price">$1,299</span>
@@ -915,7 +1013,7 @@
             <span>McLaren</span>
           </div>
         </div>
-        <div class="product-image">⚡</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/7813158/pexels-photo-7813158.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Front Splitter"></div>
         <h3 class="product-name">Front Splitter</h3>
         <div class="product-footer">
           <span class="product-price">$1,899</span>
@@ -932,7 +1030,7 @@
             <span>Nissan</span>
           </div>
         </div>
-        <div class="product-image">🔘</div>
+        <div class="product-image"><img src="https://images.pexels.com/photos/11913285/pexels-photo-11913285.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Shift Knob"></div>
         <h3 class="product-name">Shift Knob</h3>
         <div class="product-footer">
           <span class="product-price">$249</span>
@@ -1060,6 +1158,20 @@
     let selectedManufacturer = null;
     let selectedCategory = null;
 
+    // Nav dropdown toggle
+    function toggleNavDropdown(id) {
+      const dropdown = document.getElementById(id);
+      const wasOpen = dropdown.classList.contains('open');
+      
+      // Close all nav dropdowns
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      
+      if (!wasOpen) {
+        dropdown.classList.add('open');
+      }
+    }
+
+    // Filter dropdown toggle
     function toggleDropdown(id) {
       const dropdown = document.getElementById(id);
       const wasOpen = dropdown.classList.contains('open');
@@ -1071,9 +1183,13 @@
       }
     }
 
+    // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.dropdown')) {
         document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      }
+      if (!e.target.closest('.nav-dropdown')) {
+        document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
       }
     });
 
